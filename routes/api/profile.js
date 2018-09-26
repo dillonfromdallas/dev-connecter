@@ -296,4 +296,19 @@ router.get("/all", (req, res) => {
     );
 });
 
+// @route   DELETE api/profile
+// @desc    Delete user and profile
+// @access  Private
+router.delete(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOneAndDelete({ user: req.user.id }).then(() => {
+      User.findOneAndDelete({ _id: req.user.id }).then(() =>
+        res.json({ success: true })
+      );
+    });
+  }
+);
+
 module.exports = router;
