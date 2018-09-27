@@ -146,11 +146,11 @@ router.post(
   }
 );
 
-// @route   DELETE api/profile/exp/:exp_id
+// @route   DELETE api/profile/exp/:expId
 // @desc    Delete an experience entry
 // @access  Private
 router.delete(
-  "/exp/:exp_id",
+  "/exp/:expId",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Profile.findOne({ user: req.user.id })
@@ -158,7 +158,7 @@ router.delete(
         // Get remove index
         const rmIndex = profile.experience
           .map(item => item.id)
-          .indexOf(req.params.exp_id);
+          .indexOf(req.params.expId);
 
         // Splice out of array
         profile.experience.splice(rmIndex, 1);
@@ -212,11 +212,11 @@ router.post(
   }
 );
 
-// @route   DELETE api/profile/edu/:edu_id
+// @route   DELETE api/profile/edu/:eduId
 // @desc    Delete an education entry
 // @access  Private
 router.delete(
-  "/edu/:edu_id",
+  "/edu/:eduId",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Profile.findOne({ user: req.user.id })
@@ -224,7 +224,7 @@ router.delete(
         // Get remove index
         const rmIndex = profile.education
           .map(item => item.id)
-          .indexOf(req.params.edu_id);
+          .indexOf(req.params.eduId);
 
         // Splice out of array
         profile.education.splice(rmIndex, 1);
@@ -252,13 +252,13 @@ router.get("/handle/:handle", (req, res) => {
     .catch(err => res.status(404).json(err));
 });
 
-// @route   GET api/profile/user/:user_id
+// @route   GET api/profile/user/:userId
 // @desc    Get profile by user ID
 // @access  Public
-router.get("/user/:user_id", (req, res) => {
+router.get("/user/:userId", (req, res) => {
   const errors = {};
 
-  Profile.findOne({ user: req.params.user_id })
+  Profile.findOne({ user: req.params.userId })
     .populate("user", ["name", "avatar"])
     .then(profile => {
       if (!profile) {
