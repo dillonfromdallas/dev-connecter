@@ -59,20 +59,20 @@ router.get(
   }
 );
 
-// @route   GET api/posts/:post_id
+// @route   GET api/posts/:postId
 // @desc    Get an individual post
 // @access  Private
-router.get("/:post_id", (req, res) => {
-  Post.findById(req.params.post_id)
+router.get("/:postId", (req, res) => {
+  Post.findById(req.params.postId)
     .then(post => res.json(post))
     .catch(err => res.status(404).json({ noPost: "No post found!" }));
 });
 
-// @route   POST api/posts/:post_id
+// @route   POST api/posts/:postId
 // @desc    Update a post
 // @access  Private
 router.post(
-  "/:post_id",
+  "/:postId",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validatePostInput(req.body);
@@ -80,7 +80,7 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    Post.findById(req.params.post_id).then(post => {
+    Post.findById(req.params.postId).then(post => {
       if (!post.user === req.user) {
         errors.perm = "You cannot edit someone else's post.";
         return res.status(400).json(errors);
@@ -91,14 +91,14 @@ router.post(
   }
 );
 
-// @route   DELETE api/posts/:post_id
+// @route   DELETE api/posts/:postId
 // @desc    Delete a post
 // @access  Private
 router.delete(
-  "/:post_id",
+  "/:postId",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Post.findById(req.params.post_id)
+    Post.findById(req.params.postId)
       .then(post => {
         if (post.user === req.user) {
           res.json({ success: true });
@@ -113,6 +113,38 @@ router.delete(
           postNotFound: "Could not find the post. Maybe it's already deleted!"
         })
       );
+  }
+);
+
+// ~~~ Likes ~~~
+// @route   POST api/posts/like/:postId
+// @desc    Like a post
+// @access  Private
+router.post(
+  "/like/:postId",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Post.findById(req.params.postId)
+      .then(post => {
+        if (!post) res.status(404).json({ postNotFound: "No post found." });
+
+        //Check if user already liked
+        const index = post.likes.findIndex(value => {
+          return value.user == req.user.id;
+        });
+        if (index === -1) {
+          post.likes.push({ user: req.user.id });
+        } else {
+          post.likes.splice(index, 1);
+        }
+        post
+          .save()
+          .then(post => {
+            res.status(200).json(post);
+          })
+          .catch(err => res.status(404).json(err));
+      })
+      .catch(err => res.status(404).json(err));
   }
 );
 
