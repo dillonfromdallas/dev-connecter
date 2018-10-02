@@ -5,6 +5,8 @@ import TextFieldGroup from "../common/TextFieldGroup";
 import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
 import InputGroup from "../common/InputGroup";
 import SelectListGroup from "../common/SelectListGroup";
+import { createUserProfile } from "../../actions/profileActions";
+import { withRouter } from "react-router-dom";
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -30,9 +32,30 @@ class CreateProfile extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  static getDerivedStateFromProps(nextProps) {
+    if (nextProps.errors) {
+      return { errors: nextProps.errors };
+    }
+  }
+
   onSubmit(e) {
     e.preventDefault();
-    console.log("Submit");
+    const profileData = {
+      handle: this.state.handle,
+      company: this.state.company,
+      website: this.state.website,
+      location: this.state.location,
+      status: this.state.status,
+      skills: this.state.skills,
+      githubUsername: this.state.githubUsername,
+      bio: this.state.bio,
+      twitter: this.state.twitter,
+      facebook: this.state.facebook,
+      linkedin: this.state.linkedin,
+      youtube: this.state.youtube
+    };
+
+    this.props.createUserProfile(profileData, this.props.history);
   }
 
   onChange(e) {
@@ -48,7 +71,7 @@ class CreateProfile extends Component {
       socialInputs = (
         <div>
           <InputGroup
-            placeholder="@yourtwitterusername"
+            placeholder="Your Twitter URL"
             name="twitter"
             icon="fab fa-twitter"
             value={this.state.twitter}
@@ -56,7 +79,7 @@ class CreateProfile extends Component {
             error={errors.twitter}
           />
           <InputGroup
-            placeholder="/your_facebook_handle"
+            placeholder="Your Facebook URL"
             name="facebook"
             icon="fab fa-facebook"
             value={this.state.facebook}
@@ -64,7 +87,7 @@ class CreateProfile extends Component {
             error={errors.facebook}
           />
           <InputGroup
-            placeholder="/in/yourlinkedin"
+            placeholder="Your LinkedIn URL"
             name="linkedin"
             icon="fab fa-linkedin"
             value={this.state.linkedin}
@@ -72,7 +95,7 @@ class CreateProfile extends Component {
             error={errors.linkedin}
           />
           <InputGroup
-            placeholder="/wheredoisubscribe?"
+            placeholder="Your YouTube URL"
             name="youtube"
             icon="fab fa-youtube"
             value={this.state.youtube}
@@ -211,6 +234,7 @@ class CreateProfile extends Component {
 
                 <div className="mb-3">
                   <button
+                    type="button"
                     onClick={() => {
                       this.setState(prevState => ({
                         displaySocialInputs: !prevState.displaySocialInputs
@@ -224,8 +248,8 @@ class CreateProfile extends Component {
                 </div>
                 {socialInputs}
                 <input
-                  type="text"
-                  value="submit"
+                  type="submit"
+                  value="Submit"
                   className="btn btn-info btn-block mtt-4"
                 />
               </form>
@@ -247,4 +271,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(
+  mapStateToProps,
+  { createUserProfile }
+)(withRouter(CreateProfile));
