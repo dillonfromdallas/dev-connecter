@@ -65,6 +65,24 @@ export const addExperience = (expData, history) => dispatch => {
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 
+// Delete experience
+export const deleteExperience = id => dispatch => {
+  axios
+    .delete(`/api/profile/exp/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
 // Add education
 export const addEducation = (eduData, history) => dispatch => {
   axios
