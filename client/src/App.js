@@ -7,6 +7,7 @@ import jwt_decode from "jwt-decode";
 import PrivateRoute from "./components/common/PrivateRoute";
 
 // Components
+import AddEducation from "./components/addCreds/addEdu";
 import AddExperience from "./components/addCreds/addExp";
 import CreateProfile from "./components/createProfile/CreateProfile";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -71,6 +72,11 @@ class App extends Component {
                   exact
                   path="/add-experience"
                   component={AddExperience}
+                />
+                <PrivateRoute
+                  exact
+                  path="/add-education"
+                  component={AddEducation}
                 />
               </Switch>
             </div>
