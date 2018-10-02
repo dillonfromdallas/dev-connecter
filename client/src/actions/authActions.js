@@ -3,6 +3,7 @@ import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
 import { GET_ERRORS, SET_CURRENT_USER } from "./types";
+import { clearCurrentProfile } from "./profileActions";
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
@@ -49,6 +50,8 @@ export const logoutUser = () => dispatch => {
   localStorage.removeItem("jwtToken");
   // Remove Auth header for future req's.
   setAuthToken(false);
+  // Reset active profile info
+  dispatch(clearCurrentProfile());
   // Set current user / isAuthenticated to {} / false
   dispatch(setCurrentUser({}));
 };

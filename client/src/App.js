@@ -9,6 +9,7 @@ import PrivateRoute from "./components/common/PrivateRoute";
 // Components
 import CreateProfile from "./components/createProfile/CreateProfile";
 import Dashboard from "./components/dashboard/Dashboard";
+import EditProfile from "./components/editProfile/EditProfile";
 import Footer from "./components/layout/Footer";
 import Landing from "./components/layout/Landing";
 import Login from "./components/auth/Login";
@@ -59,6 +60,11 @@ class App extends Component {
                   exact
                   path="/create-profile"
                   component={CreateProfile}
+                />
+                <PrivateRoute
+                  exact
+                  path="/edit-profile"
+                  component={EditProfile}
                 />
               </Switch>
             </div>

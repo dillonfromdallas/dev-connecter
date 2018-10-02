@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { logoutUser } from "../../actions/authActions";
@@ -18,6 +18,11 @@ class Navbar extends Component {
 
     const authLinks = (
       <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link className="nav-link" to="/dashboard">
+            Dashboard
+          </Link>
+        </li>
         <li className="nav-item">
           <a
             href=""
@@ -86,9 +91,9 @@ class Navbar extends Component {
   }
 }
 
-Navbar.PropTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+Navbar.propTypes = {
+  logoutUser: propTypes.func.isRequired,
+  auth: propTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
