@@ -18,6 +18,13 @@ class Profile extends Component {
     }
   }
 
+  // !!! TODO: componentWillReceiveProps is deprecated and needs to be replaced.
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.profile.profile === null && this.props.profile.loading) {
+      this.props.history.push("/not-found");
+    }
+  }
+
   render() {
     const { profile, loading } = this.props.profile;
     let profileContent;
