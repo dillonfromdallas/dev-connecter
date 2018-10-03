@@ -37,3 +37,7 @@ img {
 .form-control::placeholder {
   color: #bbb !important;
 }
+
+/*.App { // Darkmode theme
+  background-color: rgba(0, 0, 0, 0.7);
+}*/
