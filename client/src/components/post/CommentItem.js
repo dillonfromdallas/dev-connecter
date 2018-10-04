@@ -16,7 +16,7 @@ class CommentItem extends Component {
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-2">
-            <a href="/profile.html">
+            <a href={`/profile/user/${user.id}`}>
               <img
                 src={comment.avatar}
                 alt={comment.name}
