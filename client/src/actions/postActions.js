@@ -1,5 +1,12 @@
 import axios from "axios";
-import { ADD_POST, GET_ERRORS, GET_POSTS, POST_LOADING } from "./types";
+import {
+  ADD_POST,
+  DELETE_POST,
+  GET_ERRORS,
+  GET_POSTS,
+  POST_LOADING,
+  TOGGLE_LIKE
+} from "./types";
 
 // Add Post
 export const addPost = postData => dispatch => {
@@ -33,4 +40,40 @@ export const setPostLoading = () => {
   return {
     type: POST_LOADING
   };
+};
+
+// Delete a post
+export const deletePost = id => dispatch => {
+  axios
+    .delete(`/api/posts/${id}`)
+    .then(({ data }) =>
+      dispatch({
+        type: DELETE_POST,
+        payload: data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+// Toggle the Like on a post
+export const toggleLike = id => dispatch => {
+  axios
+    .post(`/api/posts/like/${id}`)
+    .then(({ data }) =>
+      dispatch({
+        type: TOGGLE_LIKE,
+        payload: data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
 };

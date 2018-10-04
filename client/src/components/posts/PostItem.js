@@ -4,10 +4,25 @@ import { connect } from "react-redux";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
 
+import { deletePost, toggleLike } from "../../actions/postActions";
+
 class PostItem extends Component {
   onDelete(id) {
-    console.log(id);
+    this.props.deletePost(id);
   }
+  onLike(id) {
+    this.props.toggleLike(id);
+  }
+
+  checkUserLike(likes) {
+    const { auth } = this.props;
+    if (likes.filter(like => like.user === auth.user.id).length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   render() {
     const { auth, post } = this.props;
     return (
@@ -26,8 +41,15 @@ class PostItem extends Component {
           </div>
           <div className="col-md-10">
             <p className="lead">{post.text}</p>
-            <button className="btn btn-light mr-1">
-              <i className="text-info fas fa-thumbs-up" />
+            <button
+              className="btn btn-light mr-1"
+              onClick={this.onLike.bind(this, post._id)}
+            >
+              <i
+                className={classnames("fas fa-thumbs-up", {
+                  "text-info": this.checkUserLike(post.likes)
+                })}
+              />
               <span className="badge badge-light">{post.likes.length}</span>
             </button>
             <Link to={`/post/${post._id}`} className="btn btn-info mr-1">
@@ -35,7 +57,7 @@ class PostItem extends Component {
             </Link>
             {post.user === auth.user.id ? (
               <button
-                onClick={this.onDelete.bind(this, post.id)}
+                onClick={this.onDelete.bind(this, post._id)}
                 type="button"
                 className="btn btn-danger mr-1"
               >
@@ -51,7 +73,9 @@ class PostItem extends Component {
 
 PostItem.propTypes = {
   post: propTypes.object.isRequired,
-  auth: propTypes.object.isRequired
+  auth: propTypes.object.isRequired,
+  deletePost: propTypes.func.isRequired,
+  toggleLike: propTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -60,5 +84,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {}
+  { deletePost, toggleLike }
 )(PostItem);

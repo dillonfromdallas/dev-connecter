@@ -112,7 +112,7 @@ router.delete(
   }
 );
 
-// ~~~ Likes ~~~
+// ~~~ Likes and Comments ~~~
 // @route   POST api/posts/like/:postId
 // @desc    Like a post
 // @access  Private
@@ -129,8 +129,10 @@ router.post(
           return value.user == req.user.id;
         });
         if (index === -1) {
+          // If user doesn't already like post, add like
           post.likes.push({ user: req.user.id });
         } else {
+          // Otherwise, remove like
           post.likes.splice(index, 1);
         }
         post
