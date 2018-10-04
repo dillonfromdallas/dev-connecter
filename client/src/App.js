@@ -17,6 +17,7 @@ import Landing from "./components/layout/Landing";
 import Login from "./components/auth/Login";
 import Navbar from "./components/layout/Navbar";
 import NotFound from "./components/notFound/notFound";
+import Post from "./components/post/Post";
 import Posts from "./components/posts/Posts";
 import Profile from "./components/profile/Profile";
 import Profiles from "./components/profiles/Profiles";
@@ -83,6 +84,7 @@ class App extends Component {
                   component={AddEducation}
                 />
                 <PrivateRoute exact path="/feed" component={Posts} />
+                <PrivateRoute exact path="/post/:id" component={Post} />
               </Switch>
               <Route exact path="/profiles" component={Profiles} />
               <Route exact path="/profile/:handle" component={Profile} />
