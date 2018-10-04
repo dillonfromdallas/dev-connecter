@@ -183,42 +183,33 @@ router.post(
 // @desc    Delete a comment from a post
 // @access  Private
 router.delete(
-  "/comment/:postId/:commentId",
+  "/comment/:id/:comment_id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    // Find the parent post
-
-    Post.findById(req.params.postId)
+    Post.findById(req.params.id)
       .then(post => {
-        // Find the comment
-
-        const commentToDelete = post.comments.find(
-          comment => comment._id == req.params.commentId
-        );
-        if (!commentToDelete) {
+        // Check to see if comment exists
+        if (
+          post.comments.filter(
+            comment => comment._id.toString() === req.params.comment_id
+          ).length === 0
+        ) {
           return res
             .status(404)
-            .json({ commentNotFound: `Could not find the requested comment.` });
+            .json({ commentnotexists: "Comment does not exist" });
         }
 
-        // Check that user is either comment owner, or post OP.
+        // Get remove index
+        const removeIndex = post.comments
+          .map(item => item._id.toString())
+          .indexOf(req.params.comment_id);
 
-        if (!post.user == req.user.id) {
-          if (!commentToDelete.user == req.user.id) {
-            return res.status(401).json({
-              identityTheft: `You can't delete another user's comments.`
-            });
-          }
-        }
+        // Splice comment out of array
+        post.comments.splice(removeIndex, 1);
 
-        // Delete post using MongoDB $pull operator.
-
-        post
-          .updateOne({ $pull: { comments: { _id: req.params.commentId } } })
-          .then(() => res.json({ success: true }))
-          .catch(err => res.status(400).json(err));
+        post.save().then(post => res.json(post));
       })
-      .catch(err => res.status(404).json(err));
+      .catch(err => res.status(404).json({ postnotfound: "No post found" }));
   }
 );
 

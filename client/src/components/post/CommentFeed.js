@@ -17,9 +17,4 @@ CommentFeed.propTypes = {
   postId: propTypes.string.isRequired
 };
 
-const mapStateToProps = state => ({
-  comments: state.comments,
-  postId: state.postId
-});
-
 export default CommentFeed;
