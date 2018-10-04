@@ -5,7 +5,7 @@ const Validator = require("validator");
 
 const router = express.Router();
 
-const Post = require("../../models/Post");
+const Post = require("../../models/post");
 const validatePostInput = require("../../validation/post");
 
 // @route   GET api/posts/test
