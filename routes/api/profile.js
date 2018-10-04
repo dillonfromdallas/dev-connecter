@@ -5,7 +5,7 @@ const passport = require("passport");
 const router = express.Router();
 
 const User = mongoose.model("users");
-const Profile = require("../../models/profile");
+const Profile = require("../../models/Profile");
 
 const validateProfileInput = require("../../validation/profile");
 const validateExperienceInput = require("../../validation/experience");
