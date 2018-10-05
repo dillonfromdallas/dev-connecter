@@ -16,7 +16,11 @@ class CommentItem extends Component {
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-2">
+<<<<<<< HEAD
             <a href={`/profile/user/${comment.user}`}>
+=======
+            <a href="/profile.html">
+>>>>>>> parent of 88a5681... Fixed broken profile links
               <img
                 src={comment.avatar}
                 alt={comment.name}

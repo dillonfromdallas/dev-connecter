@@ -29,7 +29,7 @@ class PostItem extends Component {
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-2">
-            <a href={`/profile/user/${post.user}`}>
+            <a href="/profile">
               <img
                 src={post.avatar}
                 alt={post.name}
