@@ -18,8 +18,10 @@ class Profile extends Component {
   componentDidMount() {
     if (this.props.match.params.handle) {
       this.props.getProfileByHandle(this.props.match.params.handle);
-    } else if (this.props.match.params.userId) {
-      this.props.getProfileById(this.props.match.params.UserId);
+    }
+
+    if (this.props.match.params.userId) {
+      this.props.getProfileById(this.props.match.params.userId);
     }
   }
 
