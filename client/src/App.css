@@ -1,3 +1,7 @@
+* {
+  height: 100%vh;
+}
+
 img {
   width: 100%;
 }
