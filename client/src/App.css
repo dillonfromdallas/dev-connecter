@@ -7,13 +7,23 @@ img {
   background: url("./img/showcase.jpg") no-repeat;
   background-size: cover;
   background-position: center;
-  min-height: 100vh;
-  margin-top: -24px;
-  margin-bottom: -50px;
+  height: 50vh;
+  clip-path: polygon(0% 40%, 0% 0%, 100% 0%, 100% 140%);
+}
+
+.landing-body {
+  background-color: #343a40;
+  height: 100vh;
 }
 
 .landing-inner {
   padding-top: 80px;
+}
+
+.landing-lead {
+  margin-top: 2%;
+  margin-bottom: 2%;
+  font-size: 2rem;
 }
 
 .dark-overlay {

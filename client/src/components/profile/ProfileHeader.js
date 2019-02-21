@@ -3,6 +3,9 @@ import React, { Component } from "react";
 import isEmpty from "../../validation/isEmpty";
 
 class ProfileHeader extends Component {
+  componentDidMount() {
+    console.log(this.props.profile);
+  }
   render() {
     const { profile } = this.props;
     return (

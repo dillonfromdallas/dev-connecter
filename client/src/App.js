@@ -56,8 +56,8 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            <Navbar />
             <Route exact path="/" component={Landing} />
+            <Navbar />
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
@@ -91,7 +91,6 @@ class App extends Component {
               <Route exact path="/profile/:handle" component={Profile} />
               <Route exact path="/not-found" component={NotFound} />
             </div>
-            <Footer />
           </div>
         </Router>
       </Provider>
