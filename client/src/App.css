@@ -59,6 +59,18 @@ img {
   }
 }
 
+@media only screen and (max-height: 581px) {
+  .landing {
+    height: 65%;
+  }
+}
+
+@media only screen and (max-height: 690px) and (min-height: 581px) {
+  .landing {
+    height: 60%;
+  }
+}
+
 /* Small Devices, Tablets */
 @media only screen and (max-width: 768px) and (min-width: 481px) {
   .landing {
