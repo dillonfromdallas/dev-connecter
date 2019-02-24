@@ -43,7 +43,7 @@ class Landing extends Component {
             Browse Developers
           </Link>
         </div>
-        <Footer className="mt-5 mb-0" />
+        <Footer />
       </div>
     );
   }

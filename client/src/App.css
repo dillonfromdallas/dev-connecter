@@ -51,3 +51,18 @@ img {
 /*.App { // Darkmode theme
   background-color: rgba(0, 0, 0, 0.7);
 }*/
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width: 480px) {
+  .landing {
+    clip-path: none;
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width: 768px) and (min-width: 481px) {
+  .landing {
+    clip-path: polygon(0% 40%, 0% 0%, 100% 0%, 100% 195%);
+    height: 55%;
+  }
+}
